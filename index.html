@@ -69,3 +69,30 @@
     </select>
     <button type="submit">Place Order</button>
 </form>
+<form id="orderForm">
+    <input type="text" name="name" placeholder="Enter Name" required>
+    <input type="text" name="address" placeholder="Enter Address" required>
+    <input type="text" name="phone" placeholder="Enter Phone Number" required>
+    <input type="text" name="product" placeholder="Enter Product" required>
+    <button type="submit">Place Order</button>
+</form>
+
+<p id="response"></p> <!-- Yaha Order Status Show Hoga -->
+
+<script>
+document.getElementById("orderForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Default form submit ko rokna
+
+    var formData = new FormData(this);
+
+    fetch("https://GENN-Z.infinityfreeapp.com/backend/order.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById("response").innerText = data; // Order Status Show Karega
+    })
+    .catch(error => console.error("Error:", error));
+});
+</script>
